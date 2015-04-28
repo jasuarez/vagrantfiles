@@ -1,0 +1,35 @@
+- name: Get keys
+  sudo: no
+  command: ceph-deploy gatherkeys {{ ansible_hostname }}
+
+- name: Clean data disk
+  sudo: no
+  command: ceph-deploy disk zap {{ ansible_hostname }}:sdb
+
+- name: Create data disk
+  sudo: no
+  command: ceph-deploy osd create {{ ansible_hostname }}:sdb
+
+- name: Install MDS
+  sudo: no
+  command: ceph-deploy mds create {{ ansible_hostname }}
+
+- name: Create data pool
+  sudo: yes
+  command: ceph osd pool create cephfs_data 64
+
+- name: Create metadata pool
+  sudo: yes
+  command: ceph osd pool create cephfs_metadata 64
+
+- name: Create CephFS
+  sudo: yes
+  command: ceph fs new cephfs cephfs_metadata cephfs_data
+
+- name: Create cephfs mount point
+  sudo: yes
+  file: path=/mnt/cephfs state=directory
+
+- name: Add CephFS to /etc/fstab
+  sudo: yes
+  lineinfile: dest=/etc/fstab line="id=admin /mnt/cephfs fuse.ceph defaults 0 0"

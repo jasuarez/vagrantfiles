@@ -4,3 +4,4 @@
   roles:
     - ceph-install
     - ceph-cluster
+    - ceph-mds
