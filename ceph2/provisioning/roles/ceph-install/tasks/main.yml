@@ -13,9 +13,6 @@
     - ceph-deploy
     - ceph
     - ceph-mds
-    - apache2
-    - openssl
-    - ssl-cert
     - radosgw
     - radosgw-agent
 
