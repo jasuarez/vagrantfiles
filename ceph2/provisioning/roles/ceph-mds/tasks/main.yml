@@ -32,4 +32,4 @@
 
 - name: Add CephFS to /etc/fstab
   sudo: yes
-  lineinfile: dest=/etc/fstab line="id=admin /mnt/cephfs fuse.ceph defaults 0 0"
+  lineinfile: dest=/etc/fstab line="id=admin /mnt/cephfs fuse.ceph defaults,noauto 0 0"
