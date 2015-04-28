@@ -1,0 +1,21 @@
+- name: Add Ceph repository release key
+  apt_key: url=https://ceph.com/git/?p=ceph.git;a=blob_plain;f=keys/release.asc state=present
+
+- name: Add Ceph repository
+  apt_repository: repo='deb http://ceph.com/debian-{{ceph_release}}/ {{ distro }} main' state=present update_cache=yes
+
+- name: Add Ceph source repository
+  apt_repository: repo='deb-src http://ceph.com/debian-{{ceph_release }}/ {{ distro }} main' state=present
+
+- name: Install Ceph packages and requirements
+  apt: name="{{ item }}" state=latest
+  with_items:
+    - ceph-deploy
+    - ceph
+    - ceph-mds
+    - apache2
+    - openssl
+    - ssl-cert
+    - radosgw
+    - radosgw-agent
+

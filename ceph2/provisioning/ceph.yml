@@ -1,0 +1,5 @@
+- hosts: ceph
+  sudo: yes
+
+  roles:
+    - ceph-install
