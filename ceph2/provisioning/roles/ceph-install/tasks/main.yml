@@ -19,3 +19,5 @@
     - radosgw
     - radosgw-agent
 
+- name: Update /etc/hosts
+  lineinfile: dest=/etc/hosts line="10.0.2.15 {{ ansible_hostname }}"
