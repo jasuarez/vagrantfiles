@@ -15,6 +15,8 @@
     - ceph-mds
     - radosgw
     - radosgw-agent
+    - dnsmasq
+    - resolvconf
 
-- name: Update /etc/hosts
-  lineinfile: dest=/etc/hosts line="10.0.2.15 {{ ansible_hostname }}"
+- name: Configure dnsmasq for subdomains
+  template: src=ceph.dnsmasq.j2 dest=/etc/dnsmasq.d/ceph.conf

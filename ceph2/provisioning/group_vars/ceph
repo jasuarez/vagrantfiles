@@ -1,2 +1,3 @@
 ceph_release: hammer
 distro: trusty
+host_ip: 10.0.2.15
