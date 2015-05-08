@@ -18,5 +18,12 @@
     - dnsmasq
     - resolvconf
 
+- name: Remove host from /etc/hosts (will be managed with dnsmasq)
+  lineinfile: dest=/etc/hosts state=absent regexp="^127.0.1.1"
+
 - name: Configure dnsmasq for subdomains
   template: src=ceph.dnsmasq.j2 dest=/etc/dnsmasq.d/ceph.conf
+
+- name: Restart dnsmasq
+  service: name=dnsmasq state=restarted
+
