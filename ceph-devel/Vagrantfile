@@ -1,8 +1,8 @@
 Vagrant.configure(2) do |config|
-  config.vm.define 'ceph1'
+  config.vm.define 'ceph-devel'
   config.vm.box = 'ubuntu/trusty64'
-  config.vm.hostname = 'ceph1'
   config.vm.synced_folder "shared/", "/srv/shared"
+  config.vm.hostname = 'ceph-devel'
 
   config.vm.provider "virtualbox" do |vb|
     vb.customize ['modifyvm', :id,
