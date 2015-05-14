@@ -1,0 +1,3 @@
+- name: Install Rados Gateway
+  sudo: no
+  command: ceph-deploy rgw create {{ ansible_hostname }}

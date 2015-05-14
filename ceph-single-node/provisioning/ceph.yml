@@ -5,3 +5,4 @@
     - ceph-install
     - ceph-cluster
     - ceph-mds
+    - ceph-rgw
