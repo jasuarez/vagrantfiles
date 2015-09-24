@@ -1,0 +1,9 @@
+- name: Install required packages
+  sudo: yes
+  apt: pkg={{ item }} state=latest
+  with_items:
+    - ccache
+    - emacs
+    - g++
+    - gcc
+    - git

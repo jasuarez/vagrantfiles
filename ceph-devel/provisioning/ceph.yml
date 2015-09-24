@@ -1,0 +1,6 @@
+- hosts: ceph
+
+  roles:
+    - packages
+    - devel
+    - ceph

@@ -1,0 +1,5 @@
+- name: Add bash config repo
+  git: repo=https://github.com/jasuarez/bashrc.d.git dest=/home/{{ username }}/.bashrc.d
+
+- name: Add emacs config repo
+  git: repo=https://github.com/jasuarez/emacs.d.git dest=/home/{{ username }}/.emacs.d

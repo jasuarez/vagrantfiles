@@ -1,0 +1,5 @@
+- name: Add ceph repo
+  git: repo=https://github.com/ceph/ceph.git dest=/home/{{ username }}/ceph
+
+- name: Add S3 tests repo
+  git: repo=https://github.com/ceph/s3-tests dest=/home/{{ username }}/s3-tests
