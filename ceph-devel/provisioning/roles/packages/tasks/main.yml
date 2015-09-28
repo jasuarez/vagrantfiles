@@ -1,8 +1,9 @@
 - name: Install required packages
   sudo: yes
-  apt: pkg={{ item }} state=latest
+  apt: pkg={{ item }} state=latest update_cache=yes
   with_items:
     - ccache
+    - dnsmasq
     - emacs
     - g++
     - gcc
