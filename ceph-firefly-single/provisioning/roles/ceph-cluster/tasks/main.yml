@@ -1,0 +1,11 @@
+- name: Deploy new cluster
+  sudo: no
+  command: ceph-deploy new {{ ansible_hostname }}
+
+- name: Change pool default size
+  sudo: no
+  lineinfile: dest=ceph.conf line="osd pool default size = 2"
+
+- name: Install Monitor
+  sudo: no
+  command: ceph-deploy mon create {{ ansible_hostname }}

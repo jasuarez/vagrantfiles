@@ -1,0 +1,32 @@
+ceph_data_disk = 'ceph_firefly_single_data_disk.vdi'
+
+Vagrant.configure(2) do |config|
+  config.vm.define 'ceph-firefly-single'
+  config.vm.box = 'ubuntu/trusty64'
+  config.vm.hostname = 'ceph-firefly-single'
+
+  config.vm.synced_folder "shared/", "/srv/shared"
+
+  config.vm.provider "virtualbox" do |vb|
+    unless File.exist?(ceph_data_disk)
+      vb.customize ['createhd',
+                    '--filename', ceph_data_disk,
+                    '--size', 500 * 1024]
+    end
+    vb.customize ['storageattach', :id,
+                  '--storagectl', 'SATAController',
+                  '--port', 1,
+                  '--device', 0,
+                  '--type', 'hdd',
+                  '--medium', ceph_data_disk]
+    vb.customize ['modifyvm', :id,
+                  '--memory', 1024]
+  end
+  
+  config.vm.provision 'ansible' do |ansible|
+    ansible.playbook = 'provisioning/ceph.yml'
+    ansible.groups = {
+      'ceph' => ['ceph-firefly-single']
+    }
+  end
+end
