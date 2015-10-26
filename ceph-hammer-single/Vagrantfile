@@ -1,9 +1,9 @@
-ceph_data_disk = 'ceph_single_node_data_disk.vdi'
+ceph_data_disk = 'ceph_hammer_single_data_disk.vdi'
 
 Vagrant.configure(2) do |config|
-  config.vm.define 'ceph-single-node'
+  config.vm.define 'ceph-hammer-single'
   config.vm.box = 'ubuntu/trusty64'
-  config.vm.hostname = 'ceph-single-node'
+  config.vm.hostname = 'ceph-hammer-single'
 
   config.vm.synced_folder "shared/", "/srv/shared"
 
@@ -26,7 +26,7 @@ Vagrant.configure(2) do |config|
   config.vm.provision 'ansible' do |ansible|
     ansible.playbook = 'provisioning/ceph.yml'
     ansible.groups = {
-      'ceph' => ['ceph-single-node']
+      'ceph' => ['ceph-hammer-single']
     }
   end
 end
