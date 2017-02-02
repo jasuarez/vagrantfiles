@@ -69,6 +69,7 @@ Vagrant.configure("2") do |config|
   config.vm.provision "shell", inline: <<-SHELL
     ln -s /vagrant/unstable.list /etc/apt/sources.list.d/
     apt-get update
-    env DEBIAN_FRONTEND=noninteractive apt-get install -y kdenlive dbus-x11
+    env DEBIAN_FRONTEND=noninteractive apt-get install -y kdenlive dbus-x11 \
+        vlc breeze-icon-theme
   SHELL
 end
