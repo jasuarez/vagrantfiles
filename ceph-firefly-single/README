@@ -1,2 +1,0 @@
-Single VM based on Ubuntu Trusty 64, provisioned through Ansible to install
-Ceph.
