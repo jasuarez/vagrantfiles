@@ -1,0 +1,14 @@
+This creates an image to build [Batocera](https://batocera.org/), using Docker.
+
+As example, to build an image for the Raspberry Pi 4, enter through `vagrant ssh` and run:
+
+```
+cd batocera.linux
+make update-docker-image
+make bcm2711-build
+```
+
+This takes a long time to finish.
+
+More instructions on the [Batocera Wiki](https://wiki.batocera.org/compile_batocera.linux#easy_compilation).
+

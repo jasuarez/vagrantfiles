@@ -1,0 +1,37 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure("2") do |config|
+  config.vm.box = "roboxes-x64/ubuntu2204"
+  config.vm.hostname = "batocera"
+  config.vm.provider "libvirt" do |lv|
+    lv.memory = 8192
+    lv.machine_virtual_size = 200
+  end
+
+  # View the documentation for the provider you are using for more
+  # information on available options.
+
+  # Enable provisioning with a shell script. Additional provisioners such as
+  # Ansible, Chef, Docker, Puppet and Salt are also available. Please see the
+  # documentation for more information about their specific syntax and use.
+  config.vm.provision "shell", inline: <<-SHELL
+      growpart /dev/vda 3
+      pvresize /dev/vda3
+      lvextend -r -l +100%FREE /dev/ubuntu-vg/ubuntu-lv
+      apt update
+      apt -y install build-essential ca-certificates curl gnupg
+      install -m 0755 -d /etc/apt/keyrings
+      curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+      sudo chmod a+r /etc/apt/keyrings/docker.gpg
+      echo \
+          "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
+          $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
+          sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+      apt update
+      apt -y install docker-ce docker-ce-cli
+      usermod -aG docker vagrant
+      sudo -i -u vagrant git config --global core.compression 0
+      sudo -i -u vagrant git clone --recurse-submodules https://github.com/batocera-linux/batocera.linux    
+    SHELL
+end
